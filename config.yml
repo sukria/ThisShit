@@ -1,0 +1,8 @@
+---
+logger: "file"
+shits:
+  BooK:
+    wears: "book wears a pink shirt"
+  sukria:
+    wrote: "sukria wrote this website with Dancer"
+
