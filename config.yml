@@ -1,8 +1,12 @@
 ---
+layout: "main"
+template: 'template_toolkit'
+content_type: 'text/html'
 logger: "file"
 shits:
   book:
-    wears: "BooK wears a pink shirt"
+    wears: 
+      view: 'book-pink-shirt'
   sukria:
     wrote: "sukria wrote this website with Dancer"
 

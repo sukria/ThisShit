@@ -1,18 +1,28 @@
 package ThisShit;
 use Dancer ':syntax';
+use Template;
 
 # http://$noun.$verb.this-shit.com
 get '/' => sub {
     my $host = request->host;
-    my ($noun, $verb) = split(/\./, $host);
-    debug "Host is : $host";
-    debug "noun, verb: $noun, $verb";
+    $host =~ s/this-shit.com.*$//;
 
-    my $phrase = config->{shits}{$noun}{$verb};
-    return $phrase if defined $phrase;
+    my @words = split(/\./, $host);
+    my $verb = pop @words;
+    my $noun = join(' ', @words);
 
+    my $item = config->{shits}{$noun}{$verb};
+    my $title = "$noun $verb this shit.";
 
-    return "$noun $verb this shit.";
+    if (not defined $item) {
+        return template('home' => { title => $title, phrase => $title});
+    }
+
+    if (ref($item) && ref($item) eq 'HASH') {
+        return template($item->{view}, { title => $title});
+    }
+
+    template 'home' => { title => $title, phrase => $item};
 };
 
 true;
